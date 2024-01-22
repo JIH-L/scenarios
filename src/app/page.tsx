@@ -2,8 +2,15 @@
 import ArticleCard from "@/components/ArticleCard";
 import { useEffect, useState } from "react";
 
+interface Game {
+  _id: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+}
+
 export default function Home() {
-  const [gamesList, setGamesList] = useState([]);
+  const [gamesList, setGamesList] = useState<Game[]>([]);
 
   async function fetchGamesList() {
     try {

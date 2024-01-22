@@ -6,7 +6,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function ArticleCard(props) {
+interface PropsType {
+  data: {
+    title: string;
+    content: string;
+    imageUrl: string;
+  };
+}
+
+export default function ArticleCard(props: PropsType) {
   const { title, content, imageUrl } = props.data;
 
   return (
