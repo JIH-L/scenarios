@@ -2,7 +2,8 @@ import { connectToDatabase } from "./connect-mongo";
 import formidable from "formidable";
 import fs from "fs";
 import path from "path";
-import AWS from "aws-sdk";
+import { Upload } from "@aws-sdk/lib-storage";
+import { S3 } from "@aws-sdk/client-s3";
 import mime from "mime-types";
 
 export const config = {
@@ -17,13 +18,14 @@ function getFieldValue(field) {
 
 export default async function handler(req, res) {
   const db = await connectToDatabase(process.env.MONGODB_URI);
-  AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-  });
 
-  const s3 = new AWS.S3();
+  const s3 = new S3({
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    },
+    // region: process.env.AWS_REGION,
+  });
 
   if (req.method === "POST") {
     const form = formidable({});
@@ -55,7 +57,10 @@ export default async function handler(req, res) {
           ContentType: contentType,
           ACL: "public-read",
         };
-        const s3Upload = await s3.upload(params).promise();
+        const s3Upload = await new Upload({
+          client: s3,
+          params,
+        }).done();
 
         // 取得 S3 URL
         const imageUrl = s3Upload.Location;
