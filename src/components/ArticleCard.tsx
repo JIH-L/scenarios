@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import {
   Card,
@@ -16,15 +17,21 @@ interface PropsType {
 
 export default function ArticleCard(props: PropsType) {
   const { title, content, imageUrl } = props.data;
+  const [src, setSrc] = useState(imageUrl);
+
+  const handleError = () => {
+    setSrc('/images/error.png');
+  };
 
   return (
     <Card>
       <Image
-        src={imageUrl}
-        alt="Uploaded"
+        src={src}
+        alt={title}
         width={300}
         height={300}
         className="rounded"
+        onError={handleError}
       />
       <CardHeader>
         <CardTitle>{title}</CardTitle>
