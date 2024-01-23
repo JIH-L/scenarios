@@ -14,7 +14,7 @@ export default function Home() {
 
   async function fetchGamesList() {
     try {
-      const response = await fetch(`${process.env.VERCEL_URL}/api/games`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/games`);
       if (!response.ok) {
         throw new Error("Failed to fetch games");
       }

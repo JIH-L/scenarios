@@ -8,7 +8,7 @@ export default function UploadForm() {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
 
-    const response = await fetch(`${process.env.VERCEL_URL}/api/games`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/games`, {
       method: "POST",
       body: formData,
     });
