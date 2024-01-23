@@ -1,5 +1,6 @@
 "use client";
 import ArticleCard from "@/components/ArticleCard";
+import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 
 interface Game {
@@ -31,7 +32,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <main>
       <div className=" w-full h-96 min-h-full bg-slate-400 items-center flex justify-center mb-10">
         <h1 className="text-white text-5xl font-bold">HELLO!</h1>
       </div>
@@ -40,6 +41,7 @@ export default function Home() {
           <ArticleCard key={game._id} data={game} />
         ))}
       </div>
-    </div>
+      <Footer/>
+    </main>
   );
 }
