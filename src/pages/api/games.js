@@ -67,9 +67,11 @@ export default async function handler(req, res) {
 
         // 準備要儲存到 MongoDB 的資料
         const title = getFieldValue(fields.title);
+        const description = getFieldValue(fields.description);
         const content = getFieldValue(fields.content);
         const data = {
           title,
+          description,
           content,
           imageUrl, // 使用 S3 圖片的 URL
         };
@@ -84,7 +86,9 @@ export default async function handler(req, res) {
     });
   } else if (req.method === "GET") {
     try {
-      const data = await db.collection("games").find({}).toArray();
+      const collection = db.collection('games');
+      const data = await collection.find({}, { projection: { content: 0} }).toArray();
+      // const data = await db.collection("games").find({}).toArray();
       res.status(200).json({ data });
     } catch (error) {
       res

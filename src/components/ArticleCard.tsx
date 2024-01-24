@@ -10,13 +10,13 @@ import {
 interface PropsType {
   data: {
     title: string;
-    content: string;
+    description: string;
     imageUrl: string;
   };
 }
 
 export default function ArticleCard(props: PropsType) {
-  const { title, content, imageUrl } = props.data;
+  const { title, description, imageUrl } = props.data;
   const [src, setSrc] = useState(imageUrl);
 
   const handleError = () => {
@@ -35,7 +35,7 @@ export default function ArticleCard(props: PropsType) {
       />
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{content}</CardDescription>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
     </Card>
   );
