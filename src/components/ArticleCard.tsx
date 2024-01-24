@@ -26,7 +26,7 @@ export default function ArticleCard(props: PropsType) {
   return (
     <Card>
       <Image
-        src={src}
+        src={src || "/images/error.png"}
         alt={title}
         width={300}
         height={300}
@@ -35,7 +35,7 @@ export default function ArticleCard(props: PropsType) {
       />
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription className="line-clamp-3 min-h-[60px]">{description}</CardDescription>
       </CardHeader>
     </Card>
   );
