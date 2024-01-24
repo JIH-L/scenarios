@@ -74,6 +74,7 @@ export default async function handler(req, res) {
           description,
           content,
           imageUrl, // 使用 S3 圖片的 URL
+          createDate: new Date(),
         };
 
         // 儲存到 MongoDB
