@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <>
-      <section>
+      <section className="my-10">
       <h2>Games</h2>
       {loading && (
         <div className="grid grid-cols-3 gap-8">
