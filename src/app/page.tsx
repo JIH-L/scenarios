@@ -36,8 +36,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
-      <section className="my-20 max-w-4xl mx-auto">
+    <>
+      <section>
       <h2>Games</h2>
       {loading && (
         <div className="grid grid-cols-3 gap-8">
@@ -60,6 +60,6 @@ export default function Home() {
         ))}
       </div>
       </section>
-    </main>
+    </>
   );
 }
