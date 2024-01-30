@@ -22,6 +22,7 @@ interface Game {
   title: string;
   content: string;
   description: string;
+  type: string;
   imageUrl: string;
   createDate: string;
 }
@@ -35,10 +36,13 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <h1 className="mt-10 mb-4">{game?.title}</h1>
-      <p className="text-gray-500 text-sm mb-4">
-        {splitDate(game?.createDate)}
-      </p>
+      <h1>{game?.title}</h1>
+      <div className=" flex justify-between my-4">
+        <span className="text-gray-500 text-sm">{splitDate(game?.createDate)}</span>
+        <span className="text-gray-500 text-sm">
+          {game?.type.toUpperCase()}
+        </span>
+      </div>
       <hr />
       <Image
         src={game?.imageUrl || "/images/error.png"}
