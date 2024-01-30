@@ -20,7 +20,7 @@ export default function ArticleCard(props: PropsType) {
   const [src, setSrc] = useState(imageUrl);
 
   const handleError = () => {
-    setSrc('/images/error.png');
+    setSrc("/images/error.png");
   };
 
   return (
@@ -34,8 +34,10 @@ export default function ArticleCard(props: PropsType) {
         onError={handleError}
       />
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription className="line-clamp-3 min-h-[60px]">{description}</CardDescription>
+        <CardTitle className="my-0">{title}</CardTitle>
+        <CardDescription className="line-clamp-3 min-h-[60px]">
+          {description}
+        </CardDescription>
       </CardHeader>
     </Card>
   );

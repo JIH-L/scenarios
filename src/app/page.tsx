@@ -1,8 +1,8 @@
 "use client";
 import ArticleCard from "@/components/ArticleCard";
-import Footer from "@/components/Footer";
+import SkeletonCard from "@/components/Skeleton/SkeletonCard";
 import { useEffect, useState } from "react";
-import Link from 'next/link'
+import Link from "next/link";
 
 interface Game {
   _id: string;
@@ -14,6 +14,7 @@ interface Game {
 
 export default function Home() {
   const [gamesList, setGamesList] = useState<Game[]>([]);
+  const [loading, setLoading] = useState(true);
 
   async function fetchGamesList() {
     try {
@@ -23,6 +24,7 @@ export default function Home() {
       }
       const games = await response.json();
       setGamesList(games.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching games:", error);
       return [];
@@ -35,17 +37,29 @@ export default function Home() {
 
   return (
     <main>
-      <div className=" w-full h-96 min-h-full bg-slate-300 items-center flex justify-center mb-10">
-        <h1 className="text-white text-5xl font-bold">HELLO!</h1>
-      </div>
-      <div className="grid grid-cols-3 gap-8 max-w-4xl mx-auto">
+      <section className="my-20 max-w-4xl mx-auto">
+      <h2>Games</h2>
+      {loading && (
+        <div className="grid grid-cols-3 gap-8">
+          {Array(6)
+            .fill(null)
+            .map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
+        </div>
+      )}
+      <div
+        className={`grid grid-cols-3 gap-8 transition-opacity duration-500 ${
+          loading ? "opacity-0" : "opacity-100"
+        }`}
+      >
         {gamesList.map((game) => (
           <Link href={`/games/${game._id}`} key={game._id}>
             <ArticleCard data={game} />
           </Link>
         ))}
       </div>
-      <Footer/>
+      </section>
     </main>
   );
 }
