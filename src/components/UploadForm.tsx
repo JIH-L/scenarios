@@ -2,6 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 // TipTap
 import "@/components/Tiptap/styles.css";
 import Highlight from "@tiptap/extension-highlight";
@@ -17,7 +24,6 @@ export default function UploadForm() {
     if (editor) {
       formData.set("content", editor.getHTML());
     }
-    console.log(formData.get("content"));
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/games`, {
       method: "POST",
       body: formData,
@@ -52,6 +58,16 @@ export default function UploadForm() {
           placeholder="標題"
           className="flex"
         />
+        <Select name="type">
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="類型" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="movie">Movie</SelectItem>
+            <SelectItem value="game">Game</SelectItem>
+            <SelectItem value="novel">Novel</SelectItem>
+          </SelectContent>
+        </Select>
         <Textarea name="description" required placeholder="描述" />
         <MenuBar editor={editor} />
         <EditorContent editor={editor} />
