@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-// import { cn } from "@/lib/utils"
-// import { Inter as FontSans } from "next/font/google"
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from '@vercel/analytics/react';
 import "@/app/globals.css";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
-// export const fontSans = FontSans({
-//   subsets: ["latin"],
-//   variable: "--font-sans",
-// })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chatscripter.vercel.app/'),
@@ -44,9 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Header />
         {children}
         <SpeedInsights />
         <Analytics />
+        <Footer />
       </body>
     </html>
   );
