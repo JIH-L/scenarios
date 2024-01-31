@@ -53,9 +53,9 @@ export default function Home() {
           loading ? "opacity-0" : "opacity-100"
         }`}
       >
-        {gamesList.map((game) => (
+        {gamesList.map((game, index) => (
           <Link href={`/games/${game._id}`} key={game._id}>
-            <ArticleCard data={game} />
+            <ArticleCard data={game}  priority={index < 3}/>
           </Link>
         ))}
       </div>

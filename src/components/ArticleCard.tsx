@@ -13,10 +13,12 @@ interface PropsType {
     description: string;
     imageUrl: string;
   };
+  priority?: boolean;
 }
 
 export default function ArticleCard(props: PropsType) {
   const { title, description, imageUrl } = props.data;
+  const { priority } = props;
   const [src, setSrc] = useState(imageUrl);
 
   const handleError = () => {
@@ -32,6 +34,7 @@ export default function ArticleCard(props: PropsType) {
         height={300}
         className="rounded"
         onError={handleError}
+        priority={priority}
       />
       <CardHeader>
         <CardTitle className="my-0">{title}</CardTitle>

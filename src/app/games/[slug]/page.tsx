@@ -57,9 +57,12 @@ export default function GamePage({ params }: { params: { slug: string } }) {
         src={game?.imageUrl || "/images/error.webp"}
         alt={game?.title || ""}
         width={672}
-        height={300}
+        height={672}
+        priority={true}
         className="rounded mt-10 transition-opacity duration-500 opacity-0"
-        onLoadingComplete={(image) => {image.classList.add("opacity-100")}}
+        onLoad={(e) => {
+          e.currentTarget.classList.add("opacity-100");
+        }}
       />
       <p className="my-10 italic">{game?.description}</p>
       <hr />
