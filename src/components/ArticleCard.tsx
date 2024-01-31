@@ -26,7 +26,7 @@ export default function ArticleCard(props: PropsType) {
   return (
     <Card>
       <Image
-        src={src || "/images/error.png"}
+        src={src}
         alt={title}
         width={300}
         height={300}
