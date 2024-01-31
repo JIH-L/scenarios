@@ -9,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner";
 // TipTap
 import "@/components/Tiptap/styles.css";
 import Highlight from "@tiptap/extension-highlight";
@@ -20,6 +22,7 @@ import MenuBar from "@/components/Tiptap/MenuBar";
 export default function UploadForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formElement = event.target as HTMLFormElement;
     const formData = new FormData(event.target as HTMLFormElement);
     if (editor) {
       formData.set("content", editor.getHTML());
@@ -29,10 +32,13 @@ export default function UploadForm() {
       body: formData,
     });
 
+    console.log('response', response);
+
     if (response.ok) {
-      console.log("上傳成功");
+      toast.success("上傳成功");
+      formElement.reset();
     } else {
-      console.error("上傳失敗");
+      toast.error("上傳失敗");
     }
   };
 
@@ -74,6 +80,7 @@ export default function UploadForm() {
         <Input type="file" name="image" required />
         <Button type="submit">上傳</Button>
       </form>
+      <Toaster />
     </>
   );
 }
