@@ -1,5 +1,7 @@
 "use client";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 // TipTap
 import "@/components/Tiptap/styles.css";
@@ -20,8 +22,10 @@ import StarterKit from "@tiptap/starter-kit";
 import MenuBar from "@/components/Tiptap/MenuBar";
 
 export default function UploadForm() {
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     const formElement = event.target as HTMLFormElement;
     const formData = new FormData(event.target as HTMLFormElement);
     if (editor) {
@@ -32,11 +36,14 @@ export default function UploadForm() {
       body: formData,
     });
 
-    console.log('response', response);
-
     if (response.ok) {
       toast.success("上傳成功");
+      setLoading(false);
+      // reset form
       formElement.reset();
+      if(editor){
+        editor.commands.clearContent()
+      }
     } else {
       toast.error("上傳失敗");
     }
@@ -78,7 +85,14 @@ export default function UploadForm() {
         <MenuBar editor={editor} />
         <EditorContent editor={editor} />
         <Input type="file" name="image" required />
-        <Button type="submit">上傳</Button>
+        <Button type="submit" disabled={loading}>
+          {loading && (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
+            </>
+          )}
+          {!loading && "上傳"}
+        </Button>
       </form>
       <Toaster />
     </>
