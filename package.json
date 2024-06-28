@@ -12,6 +12,8 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.496.0",
     "@aws-sdk/lib-storage": "^3.496.0",
+    "@hookform/resolvers": "^3.3.4",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@tiptap/extension-bullet-list": "^2.1.16",
@@ -33,10 +35,12 @@
     "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.3",
     "sonner": "^1.4.0",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
-    "vercel": "^33.1.0"
+    "vercel": "^33.1.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "typescript": "^5",

@@ -82,7 +82,7 @@ export default async function handler(req, res) {
         };
 
         // 儲存到 MongoDB
-        const result = await db.collection("games").insertOne(data);
+        const result = await db.collection("novels").insertOne(data);
 
         res.status(200).json({ message: "文件上傳成功", file: data });
       } catch (error) {
@@ -92,7 +92,7 @@ export default async function handler(req, res) {
   } else if (req.method === "GET") {
     try {
       const data = await db
-        .collection("games")
+        .collection("novels")
         .findOne({ _id: new ObjectId(id) });
       res.status(200).json(data);
     } catch (error) {

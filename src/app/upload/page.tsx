@@ -23,6 +23,12 @@ import MenuBar from "@/components/Tiptap/MenuBar";
 
 export default function UploadForm() {
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState("games");
+  const handleValueChange = (value) => {
+    // 使用 setSelectedType 函數來更新 selectedType 狀態
+    setType(value);
+    console.log(value);
+  };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
@@ -31,7 +37,7 @@ export default function UploadForm() {
     if (editor) {
       formData.set("content", editor.getHTML());
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/games`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/${type}`, {
       method: "POST",
       body: formData,
     });
@@ -41,8 +47,8 @@ export default function UploadForm() {
       setLoading(false);
       // reset form
       formElement.reset();
-      if(editor){
-        editor.commands.clearContent()
+      if (editor) {
+        editor.commands.clearContent();
       }
     } else {
       toast.error("上傳失敗");
@@ -71,7 +77,7 @@ export default function UploadForm() {
           placeholder="標題"
           className="flex"
         />
-        <Select name="type">
+        <Select name="type" onValueChange={handleValueChange}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="類型" />
           </SelectTrigger>

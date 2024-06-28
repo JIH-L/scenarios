@@ -1,7 +1,7 @@
 export default function GamesPage() {
   return (
     <>
-      <h1>遊戲</h1>
+      <h1>小說</h1>
     </>
   );
 }
