@@ -56,12 +56,13 @@ export default function Home() {
   return (
     <>
       <section className="flex flex-col space-x-2 gap-2 items-center py-20">
-        <h1 className="text-6xl text-center leading-[1.1]">
-          AI Powered Script Writing
+        <h1 className="text-5xl text-center leading-[1.1]">
+          取得靈感，創作劇本
         </h1>
         <span className="text-center max-w-xl text-gray-500">
-          Explore ChatScripter, an innovative platform where AI technology meets
-          creative scriptwriting. Generate unique scripts effortlessly with AI.
+          如果你是編劇、作家、遊戲設計師，這裡是你的創作天地，
+          <br />
+          透過劇本創作，讓你的想法實現。
         </span>
       </section>
       {gamesLoading ? (
