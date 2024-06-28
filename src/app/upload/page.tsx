@@ -24,7 +24,7 @@ import MenuBar from "@/components/Tiptap/MenuBar";
 export default function UploadForm() {
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState("games");
-  const handleValueChange = (value) => {
+  const handleValueChange = (value: string) => {
     // 使用 setSelectedType 函數來更新 selectedType 狀態
     setType(value);
     console.log(value);
