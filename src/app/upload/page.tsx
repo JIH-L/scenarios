@@ -27,7 +27,6 @@ export default function UploadForm() {
   const handleValueChange = (value: string) => {
     // 使用 setSelectedType 函數來更新 selectedType 狀態
     setType(value);
-    console.log(value);
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

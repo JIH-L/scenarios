@@ -1,20 +1,12 @@
 "use client";
-import ArticleCard from "@/components/ArticleCard";
-import SkeletonCard from "@/components/Skeleton/SkeletonCard";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-
-type Script = {
-  _id: string;
-  title: string;
-  content: string;
-  description: string;
-  imageUrl: string;
-};
+import HomeList from "@/components/HomeList";
+import SkeletonHomeList from "@/components/Skeleton/SkeletonHomeList";
+import type { ScriptData } from "@/types/common";
 
 export default function Home() {
-  const [gamesList, setGamesList] = useState<Script[]>([]);
-  const [novelsList, setNovelsList] = useState<Script[]>([]);
+  const [gamesList, setGamesList] = useState<ScriptData[]>([]);
+  const [novelsList, setNovelsList] = useState<ScriptData[]>([]);
   const [gamesLoading, setGamesLoading] = useState(true);
   const [novelsLoading, setNovelsLoading] = useState(true);
 
@@ -56,58 +48,24 @@ export default function Home() {
   return (
     <>
       <section className="flex flex-col space-x-2 gap-2 items-center py-20">
-        <h1 className="text-5xl text-center leading-[1.1]">
+        <h1 className="text-2xl md:text-5xl text-center leading-[1.1]">
           取得靈感，創作劇本
         </h1>
-        <span className="text-center max-w-xl text-gray-500">
+        <span className="text-center max-w-xl text-gray-500 text-xs md:text-base">
           如果你是編劇、作家、遊戲設計師，這裡是你的創作天地，
           <br />
           透過劇本創作，讓你的想法實現。
         </span>
       </section>
       {gamesLoading ? (
-        <SkeletonCard />
+        <SkeletonHomeList />
       ) : (
-        <section className="py-10">
-          <h2>最新遊戲劇本</h2>
-          <div
-            className={`grid grid-cols-3 gap-8 transition-opacity duration-500 mt-4 ${
-              gamesLoading ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            {gamesList.map((data, index) => (
-              <Link
-                href={`/games/${data._id}`}
-                key={data._id}
-                className="hover:scale-105 transition-all duration-300"
-              >
-                <ArticleCard data={data} priority={index < 3} />
-              </Link>
-            ))}
-          </div>
-        </section>
+        <HomeList scriptList={gamesList} />
       )}
       {novelsLoading ? (
-        <SkeletonCard />
+        <SkeletonHomeList />
       ) : (
-        <section className="py-10">
-          <h2>最新小說劇本</h2>
-          <div
-            className={`grid grid-cols-3 gap-8 transition-opacity duration-500 mt-4 ${
-              novelsLoading ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            {novelsList.map((data, index) => (
-              <Link
-                href={`/novels/${data._id}`}
-                key={data._id}
-                className="hover:scale-105 transition-all duration-300"
-              >
-                <ArticleCard data={data} priority={index < 3} />
-              </Link>
-            ))}
-          </div>
-        </section>
+        <HomeList scriptList={novelsList} />
       )}
     </>
   );

@@ -1,4 +1,4 @@
-export default function GameLayout({
+export default function ContentLayout({
   children, // will be a page or nested layout
 }: {
   children: React.ReactNode;

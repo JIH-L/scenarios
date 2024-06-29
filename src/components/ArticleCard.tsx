@@ -32,13 +32,18 @@ export default function ArticleCard(props: PropsType) {
         alt={title}
         width={300}
         height={300}
-        className="rounded"
+        className="rounded-tr-md rounded-tl-md transition-opacity duration-500 opacity-0"
         onError={handleError}
         priority={priority}
+        onLoad={(e) => {
+          e.currentTarget.classList.add("opacity-100");
+        }}
       />
-      <CardHeader>
-        <CardTitle className="my-0">{title}</CardTitle>
-        <CardDescription className="line-clamp-3 min-h-[60px]">
+      <CardHeader className="p-4">
+        <CardTitle className="my-0 text-base md:text-xl line-clamp-1">
+          {title}
+        </CardTitle>
+        <CardDescription className="line-clamp-3 text-xs md:text-sm">
           {description}
         </CardDescription>
       </CardHeader>
