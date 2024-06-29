@@ -5,6 +5,7 @@ import Link from 'next/link';
 import type { ScriptData } from '@/types/common';
 import { fetchScriptList } from '@/services/script';
 import { splitDate } from '@/lib/utils';
+import SkeletonList from '@/components/Skeleton/SkeletonList';
 
 export default function ListPage({ params }: { params: { slug: string } }) {
   const [list, setList] = useState<ScriptData[]>([]);
@@ -32,13 +33,14 @@ export default function ListPage({ params }: { params: { slug: string } }) {
   }, [params.slug]);
   return (
     <>
-      <h1 className="text-2xl md:py-10 md:text-3xl">
+      <h1 className="mb-4 text-2xl md:pt-10 md:text-3xl">
         {type[params.slug].title}
       </h1>
+      <hr />
       {loading ? (
-        <p>Loading...</p>
+        <SkeletonList />
       ) : (
-        <ul className="grid gap-3 p-0">
+        <ul className="mt-4 grid gap-3 p-0 md:mt-8">
           {list.map((item) => (
             <Link key={item._id} href={`/${type[params.slug].url}/${item._id}`}>
               <li className="flex gap-4 rounded-md p-2 transition-all duration-200 hover:bg-slate-100">
@@ -48,17 +50,20 @@ export default function ListPage({ params }: { params: { slug: string } }) {
                     alt={item.title}
                     width={200}
                     height={200}
-                    className="rounded-md"
+                    className="rounded-md opacity-0 transition-opacity duration-500"
+                    onLoad={(e) => {
+                      e.currentTarget.classList.add('opacity-100');
+                    }}
                   />
                 </div>
                 <div className="basis-4/5">
-                  <h3 className="mb-0 mt-0 text-xl md:mb-2 md:text-2xl">
+                  <h3 className="mb-0 mt-0 text-lg md:mb-2 md:text-xl">
                     {item.title}
                   </h3>
-                  <time className="text-sm text-gray-500">
+                  <time className="text-xs text-gray-500">
                     {splitDate(item.createdAt)}
                   </time>
-                  <p className="m-0 line-clamp-3 text-sm md:text-base xl:line-clamp-none">
+                  <p className="m-0 line-clamp-3 text-xs text-[#5C5C5C] md:text-sm xl:line-clamp-none">
                     {item.description}
                   </p>
                 </div>
