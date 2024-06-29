@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       const collection = db.collection('games');
       const data = await collection
         .find({}, { projection: { content: 0 } }) // 這裡使用 projection 來排除 content 欄位
-        .sort({ createDate: -1 }) // 這裡使用 -1 表示按 createdAt 降序排序
+        .sort({ createdAt: -1 }) // 這裡使用 -1 表示按 createdAt 降序排序
         .toArray();
       res.status(200).json({ data });
     } catch (error) {

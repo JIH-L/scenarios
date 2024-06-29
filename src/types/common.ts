@@ -5,5 +5,5 @@ export type ScriptData = {
   description: string;
   type: string;
   imageUrl: string;
-  createDate: string;
+  createdAt: string;
 };

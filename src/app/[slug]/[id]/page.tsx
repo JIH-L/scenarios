@@ -29,7 +29,7 @@ export default function ContentPage({
       <h1>{data?.title}</h1>
       <div className="my-4 flex justify-between">
         <span className="text-sm text-gray-500">
-          {splitDate(data?.createDate)}
+          {splitDate(data?.createdAt)}
         </span>
         <span className="text-sm text-gray-500">
           {data?.type?.toUpperCase()}

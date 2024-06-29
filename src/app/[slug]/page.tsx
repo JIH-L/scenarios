@@ -56,7 +56,7 @@ export default function ListPage({ params }: { params: { slug: string } }) {
                     {item.title}
                   </h3>
                   <time className="text-sm text-gray-500">
-                    {splitDate(item.createDate)}
+                    {splitDate(item.createdAt)}
                   </time>
                   <p className="m-0 line-clamp-3 text-sm md:text-base xl:line-clamp-none">
                     {item.description}
