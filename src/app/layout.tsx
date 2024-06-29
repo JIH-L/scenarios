@@ -43,7 +43,7 @@ export default function RootLayout({
     <html lang="zh-TW">
       <body className={inter.className}>
         <Header />
-        <div className="mx-auto max-w-sm px-4 md:max-w-2xl md:px-0 xl:max-w-5xl">
+        <div className="mx-auto max-w-sm px-4 sm:max-w-xl md:max-w-2xl md:px-0 xl:max-w-5xl">
           {children}
         </div>
         <SpeedInsights />

@@ -32,7 +32,7 @@ export default function ContentPage({
           {splitDate(data?.createDate)}
         </span>
         <span className="text-sm text-gray-500">
-          {data?.type.toUpperCase()}
+          {data?.type?.toUpperCase()}
         </span>
       </div>
       <hr />

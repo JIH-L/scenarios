@@ -3,9 +3,5 @@ export default function ContentLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <section className="mx-auto max-w-2xl py-12">{children}</section>
-    </>
-  );
+  return <article className="mx-auto mt-10 max-w-2xl">{children}</article>;
 }

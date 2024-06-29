@@ -43,12 +43,12 @@ export default function Home() {
       {gamesLoading ? (
         <SkeletonHomeList />
       ) : (
-        <HomeList scriptList={gamesList} />
+        <HomeList scriptList={gamesList} type={'game'} />
       )}
       {novelsLoading ? (
         <SkeletonHomeList />
       ) : (
-        <HomeList scriptList={novelsList} />
+        <HomeList scriptList={novelsList} type={'novel'} />
       )}
     </>
   );
