@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import HomeList from "@/components/HomeList";
 import SkeletonHomeList from "@/components/Skeleton/SkeletonHomeList";
 import type { ScriptData } from "@/types/common";
+import { fetchScriptList } from "@/services/script";
 
 export default function Home() {
   const [gamesList, setGamesList] = useState<ScriptData[]>([]);
@@ -11,33 +12,15 @@ export default function Home() {
   const [novelsLoading, setNovelsLoading] = useState(true);
 
   async function fetchGamesList() {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/games`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch games");
-      }
-      const res = await response.json();
-      setGamesList(res.data);
-      setGamesLoading(false);
-    } catch (error) {
-      console.error("Error fetching games:", error);
-      return [];
-    }
+    const res = await fetchScriptList("games");
+    setGamesList(res);
+    setGamesLoading(false);
   }
 
   async function fetchNovelsList() {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/novels`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch novels");
-      }
-      const res = await response.json();
-      setNovelsList(res.data);
-      setNovelsLoading(false);
-    } catch (error) {
-      console.error("Error fetching games:", error);
-      return [];
-    }
+    const res = await fetchScriptList("novels");
+    setNovelsList(res);
+    setNovelsLoading(false);
   }
 
   useEffect(() => {
