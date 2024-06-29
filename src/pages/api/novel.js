@@ -1,11 +1,11 @@
-import { connectToDatabase } from "./connect-mongo";
-import { ObjectId } from "mongodb";
-import formidable from "formidable";
-import fs from "fs";
-import path from "path";
-import { Upload } from "@aws-sdk/lib-storage";
-import { S3 } from "@aws-sdk/client-s3";
-import mime from "mime-types";
+import { connectToDatabase } from './connect-mongo';
+import { ObjectId } from 'mongodb';
+import formidable from 'formidable';
+import fs from 'fs';
+import path from 'path';
+import { Upload } from '@aws-sdk/lib-storage';
+import { S3 } from '@aws-sdk/client-s3';
+import mime from 'mime-types';
 
 export const config = {
   api: {
@@ -29,12 +29,12 @@ export default async function handler(req, res) {
     // region: process.env.AWS_REGION,
   });
 
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const form = formidable({});
     form.parse(req, async (err, fields, files) => {
       try {
         if (err) {
-          res.status(500).json({ message: "文件上傳出錯", error: err });
+          res.status(500).json({ message: '文件上傳出錯', error: err });
           return;
         }
 
@@ -53,11 +53,11 @@ export default async function handler(req, res) {
 
         // 上傳到 S3
         const params = {
-          Bucket: "scenarios-bucket",
+          Bucket: 'scenarios-bucket',
           Key: s3Key,
           Body: fileContent,
           ContentType: contentType,
-          ACL: "public-read",
+          ACL: 'public-read',
         };
         const s3Upload = await new Upload({
           client: s3,
@@ -82,23 +82,23 @@ export default async function handler(req, res) {
         };
 
         // 儲存到 MongoDB
-        const result = await db.collection("novels").insertOne(data);
+        const result = await db.collection('novels').insertOne(data);
 
-        res.status(200).json({ message: "文件上傳成功", file: data });
+        res.status(200).json({ message: '文件上傳成功', file: data });
       } catch (error) {
-        res.status(500).json({ message: "Server Error", error: error.message });
+        res.status(500).json({ message: 'Server Error', error: error.message });
       }
     });
-  } else if (req.method === "GET") {
+  } else if (req.method === 'GET') {
     try {
       const data = await db
-        .collection("novels")
+        .collection('novels')
         .findOne({ _id: new ObjectId(id) });
       res.status(200).json(data);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   } else {
-    res.status(405).json({ message: "不允許的請求方法" });
+    res.status(405).json({ message: '不允許的請求方法' });
   }
 }

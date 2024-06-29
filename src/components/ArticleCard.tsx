@@ -1,11 +1,11 @@
-import { useState } from "react";
-import Image from "next/image";
+import { useState } from 'react';
+import Image from 'next/image';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 interface PropsType {
   data: {
@@ -22,7 +22,7 @@ export default function ArticleCard(props: PropsType) {
   const [src, setSrc] = useState(imageUrl);
 
   const handleError = () => {
-    setSrc("/images/error.png");
+    setSrc('/images/error.png');
   };
 
   return (
@@ -32,15 +32,15 @@ export default function ArticleCard(props: PropsType) {
         alt={title}
         width={300}
         height={300}
-        className="rounded-tr-md rounded-tl-md transition-opacity duration-500 opacity-0"
+        className="rounded-tl-md rounded-tr-md opacity-0 transition-opacity duration-500"
         onError={handleError}
         priority={priority}
         onLoad={(e) => {
-          e.currentTarget.classList.add("opacity-100");
+          e.currentTarget.classList.add('opacity-100');
         }}
       />
       <CardHeader className="p-4">
-        <CardTitle className="my-0 text-base md:text-xl line-clamp-1">
+        <CardTitle className="my-0 line-clamp-1 text-base md:text-xl">
           {title}
         </CardTitle>
         <CardDescription className="line-clamp-3 text-xs md:text-sm">

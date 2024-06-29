@@ -1,15 +1,15 @@
-"use client";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+'use client';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex items-center justify-between py-2 px-2 md:px-8  border-b-[1px] sticky top-0 z-10 backdrop-blur bg-background/95 supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-10 flex items-center justify-between border-b-[1px] bg-background/95 px-2 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-8">
       <div className="flex items-center justify-start space-x-8">
-        <Link href="/" className="text-xl font-bold flex items-center gap-1">
+        <Link href="/" className="flex items-center gap-1 text-xl font-bold">
           <Image
             src="/images/logo.svg"
             alt="Scenarios"
@@ -22,7 +22,7 @@ export default function Header() {
           <Button asChild variant="link">
             <Link
               href="/games"
-              className={`${pathname === "/games" ? "underline" : ""}`}
+              className={`${pathname === '/games' ? 'underline' : ''}`}
             >
               遊戲
             </Link>
@@ -30,7 +30,7 @@ export default function Header() {
           <Button asChild variant="link">
             <Link
               href="/novels"
-              className={`${pathname === "/novels" ? "underline" : ""}`}
+              className={`${pathname === '/novels' ? 'underline' : ''}`}
             >
               小說
             </Link>

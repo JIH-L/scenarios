@@ -1,29 +1,29 @@
-"use client";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
+'use client';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
+} from '@/components/ui/select';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 // TipTap
-import "@/components/Tiptap/styles.css";
-import Highlight from "@tiptap/extension-highlight";
-import TextAlign from "@tiptap/extension-text-align";
-import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import MenuBar from "@/components/Tiptap/MenuBar";
+import '@/components/Tiptap/styles.css';
+import Highlight from '@tiptap/extension-highlight';
+import TextAlign from '@tiptap/extension-text-align';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import MenuBar from '@/components/Tiptap/MenuBar';
 
 export default function UploadForm() {
   const [loading, setLoading] = useState(false);
-  const [type, setType] = useState("games");
+  const [type, setType] = useState('games');
   const handleValueChange = (value: string) => {
     // 使用 setSelectedType 函數來更新 selectedType 狀態
     setType(value);
@@ -34,15 +34,15 @@ export default function UploadForm() {
     const formElement = event.target as HTMLFormElement;
     const formData = new FormData(event.target as HTMLFormElement);
     if (editor) {
-      formData.set("content", editor.getHTML());
+      formData.set('content', editor.getHTML());
     }
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/${type}`, {
-      method: "POST",
+      method: 'POST',
       body: formData,
     });
 
     if (response.ok) {
-      toast.success("上傳成功");
+      toast.success('上傳成功');
       setLoading(false);
       // reset form
       formElement.reset();
@@ -50,7 +50,7 @@ export default function UploadForm() {
         editor.commands.clearContent();
       }
     } else {
-      toast.error("上傳失敗");
+      toast.error('上傳失敗');
     }
   };
 
@@ -58,17 +58,17 @@ export default function UploadForm() {
     extensions: [
       StarterKit,
       TextAlign.configure({
-        types: ["heading", "paragraph"],
+        types: ['heading', 'paragraph'],
       }),
       Highlight,
     ],
-    content: "",
+    content: '',
   });
 
   return (
     <>
-      <h1 className="text-center my-3">Upload</h1>
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto grid gap-5">
+      <h1 className="my-3 text-center">Upload</h1>
+      <form onSubmit={handleSubmit} className="mx-auto grid max-w-3xl gap-5">
         <Input
           type="text"
           name="title"
@@ -96,7 +96,7 @@ export default function UploadForm() {
               <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
             </>
           )}
-          {!loading && "上傳"}
+          {!loading && '上傳'}
         </Button>
       </form>
       <Toaster />

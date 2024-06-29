@@ -1,10 +1,10 @@
-"use client";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import SkeletonPage from "@/components/Skeleton/SkeletonPage";
-import type { ScriptData } from "@/types/common";
-import { splitDate } from "@/lib/utils";
-import { getScriptDataById } from "@/services/script";
+'use client';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import SkeletonPage from '@/components/Skeleton/SkeletonPage';
+import type { ScriptData } from '@/types/common';
+import { splitDate } from '@/lib/utils';
+import { getScriptDataById } from '@/services/script';
 export default function ContentPage({
   params,
 }: {
@@ -27,31 +27,31 @@ export default function ContentPage({
   return (
     <>
       <h1>{data?.title}</h1>
-      <div className="flex justify-between my-4">
-        <span className="text-gray-500 text-sm">
+      <div className="my-4 flex justify-between">
+        <span className="text-sm text-gray-500">
           {splitDate(data?.createDate)}
         </span>
-        <span className="text-gray-500 text-sm">
+        <span className="text-sm text-gray-500">
           {data?.type.toUpperCase()}
         </span>
       </div>
       <hr />
       <Image
-        src={data?.imageUrl || "/images/error.webp"}
-        alt={data?.title || ""}
+        src={data?.imageUrl || '/images/error.webp'}
+        alt={data?.title || ''}
         width={672}
         height={672}
         priority={true}
-        className="rounded mt-10 transition-opacity duration-500 opacity-0"
+        className="mt-10 rounded opacity-0 transition-opacity duration-500"
         onLoad={(e) => {
-          e.currentTarget.classList.add("opacity-100");
+          e.currentTarget.classList.add('opacity-100');
         }}
       />
       <p className="my-10 italic">{data?.description}</p>
       <hr />
       <div
         className="mt-10"
-        dangerouslySetInnerHTML={{ __html: data?.content || "" }}
+        dangerouslySetInnerHTML={{ __html: data?.content || '' }}
       />
     </>
   );
