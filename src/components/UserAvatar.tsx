@@ -3,7 +3,6 @@ import Image from 'next/image';
 
 export async function UserAvatar() {
   const session = await auth();
-  console.log(session);
 
   if (!session || !session.user) return null;
 

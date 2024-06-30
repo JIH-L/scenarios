@@ -7,3 +7,9 @@ export type ScriptData = {
   imageUrl: string;
   createdAt: string;
 };
+export type ScriptList = {
+  data: ScriptData[];
+  page: number;
+  totalPages: number;
+  totalCount: number;
+};

@@ -1,12 +1,12 @@
 import ArticleCard from '@/components/ArticleCard';
 import Link from 'next/link';
-import type { ScriptData } from '@/types/common';
+import type { ScriptList } from '@/types/common';
 
 export default function HomeList({
   scriptList,
   type,
 }: {
-  scriptList: ScriptData[];
+  scriptList: ScriptList;
   type: string;
 }) {
   const scriptType: { [key: string]: string } = {
@@ -18,7 +18,7 @@ export default function HomeList({
     <section className="pb-10">
       <h2 className="text-xl md:text-3xl">最新{scriptType[type]}</h2>
       <div className="mt-4 grid grid-cols-2 gap-4 transition-opacity duration-500 md:grid-cols-3 xl:grid-cols-4 xl:gap-8">
-        {scriptList.map((data, index) => (
+        {scriptList?.data.slice(0, 8).map((data, index) => (
           <Link
             href={`/${type}/${data._id}`}
             key={data._id}

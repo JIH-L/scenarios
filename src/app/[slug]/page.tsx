@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ScriptData } from '@/types/common';
-import { fetchScriptList } from '@/services/script';
+import { getScriptList } from '@/services/script';
 import { splitDate } from '@/lib/utils';
 import SkeletonList from '@/components/Skeleton/SkeletonList';
 
@@ -12,8 +12,9 @@ export default function ListPage({ params }: { params: { slug: string } }) {
   const [loading, setLoading] = useState(true);
 
   async function fetchList(type: string) {
-    const res = await fetchScriptList(type);
-    setList(res);
+    const res = await getScriptList(type);
+    if (!res) return;
+    setList(res.data);
     setLoading(false);
   }
 

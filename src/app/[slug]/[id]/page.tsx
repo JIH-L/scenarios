@@ -4,7 +4,7 @@ import Image from 'next/image';
 import SkeletonPage from '@/components/Skeleton/SkeletonPage';
 import type { ScriptData } from '@/types/common';
 import { splitDate } from '@/lib/utils';
-import { getScriptDataById } from '@/services/script';
+import { getScriptById } from '@/services/script';
 export default function ContentPage({
   params,
 }: {
@@ -14,7 +14,7 @@ export default function ContentPage({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getScriptDataById(params.slug, params.id).then((res) => {
+    getScriptById(params.slug, params.id).then((res) => {
       setData(res);
       setLoading(false);
     });

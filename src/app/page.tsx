@@ -1,32 +1,10 @@
-'use client';
-import { useEffect, useState } from 'react';
+import type { ScriptList } from '@/types/common';
+import { getScriptList } from '@/services/script';
 import HomeList from '@/components/HomeList';
-import SkeletonHomeList from '@/components/Skeleton/SkeletonHomeList';
-import type { ScriptData } from '@/types/common';
-import { fetchScriptList } from '@/services/script';
 
-export default function Home() {
-  const [gamesList, setGamesList] = useState<ScriptData[]>([]);
-  const [novelsList, setNovelsList] = useState<ScriptData[]>([]);
-  const [gamesLoading, setGamesLoading] = useState(true);
-  const [novelsLoading, setNovelsLoading] = useState(true);
-
-  async function fetchGamesList() {
-    const res = await fetchScriptList('games');
-    setGamesList(res);
-    setGamesLoading(false);
-  }
-
-  async function fetchNovelsList() {
-    const res = await fetchScriptList('novels');
-    setNovelsList(res);
-    setNovelsLoading(false);
-  }
-
-  useEffect(() => {
-    fetchGamesList();
-    fetchNovelsList();
-  }, []);
+export default async function Home() {
+  const gamesList = (await getScriptList('games')) as ScriptList;
+  const novelsList = (await getScriptList('novels')) as ScriptList;
 
   return (
     <>
@@ -40,16 +18,8 @@ export default function Home() {
           透過劇本創作，讓你的想法實現。
         </span>
       </section>
-      {gamesLoading ? (
-        <SkeletonHomeList />
-      ) : (
-        <HomeList scriptList={gamesList} type={'game'} />
-      )}
-      {novelsLoading ? (
-        <SkeletonHomeList />
-      ) : (
-        <HomeList scriptList={novelsList} type={'novel'} />
-      )}
+      <HomeList scriptList={gamesList} type={'game'} />
+      <HomeList scriptList={novelsList} type={'novel'} />
     </>
   );
 }
