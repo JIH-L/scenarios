@@ -1,6 +1,5 @@
 import type { ScriptData, ScriptList } from '@/types/common';
-
-const BASE_URL = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+const API_URL = process.env.NEXT_PUBLIC_URL;
 
 async function fetchJsonWithCheck<T>(url: string): Promise<T> {
   const res = await fetch(url);
@@ -12,7 +11,7 @@ async function fetchJsonWithCheck<T>(url: string): Promise<T> {
 
 async function fetchData<T>(url: string): Promise<T | null> {
   try {
-    return await fetchJsonWithCheck<T>(`${BASE_URL}${url}`);
+    return await fetchJsonWithCheck<T>(`${API_URL}${url}`);
   } catch (error) {
     console.error(`Fetch error for URL ${url}:`, error);
     return null;
