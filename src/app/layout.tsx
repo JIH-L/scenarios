@@ -1,11 +1,10 @@
+import '@/app/globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
-import '@/app/globals.css';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -45,7 +44,7 @@ export default function RootLayout({
     <html lang="zh-TW">
       <body className={inter.className}>
         <Header />
-        <div className="mx-auto max-w-sm px-4 sm:max-w-xl md:max-w-2xl md:px-0 xl:max-w-5xl">
+        <div className="mx-auto max-w-sm px-4 sm:max-w-lg md:max-w-2xl md:px-0 xl:max-w-5xl">
           {children}
         </div>
         <SpeedInsights />

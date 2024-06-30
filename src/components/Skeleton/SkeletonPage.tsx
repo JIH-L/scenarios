@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function ArticleCardSkeleton() {
+export default function SkeletonPage() {
   return (
     <div className="flex flex-col space-y-6">
       <Skeleton className="h-10 w-[250px]" />

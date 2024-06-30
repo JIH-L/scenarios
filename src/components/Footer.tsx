@@ -1,4 +1,4 @@
-export default function Footer() {
+export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-10 py-4 text-center">

@@ -67,7 +67,7 @@ export default function UploadForm() {
 
   return (
     <>
-      <h1 className="my-3 text-center">Upload</h1>
+      <h1 className="my-3 text-center">新增文章</h1>
       <form onSubmit={handleSubmit} className="mx-auto grid max-w-3xl gap-5">
         <Input
           type="text"
