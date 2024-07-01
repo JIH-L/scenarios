@@ -18,7 +18,7 @@ export default async function Home() {
           透過劇本創作，讓你的想法實現。
         </span>
       </section>
-      <HomeList scriptList={gamesList} type={'game'} />
+      <HomeList scriptList={gamesList} type={'game'} priority={true} />
       <HomeList scriptList={novelsList} type={'novel'} />
     </>
   );
