@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_VERCEL_URL || 'https://chatscripter.vercel.app/'
+    process.env.NEXT_PUBLIC_URL || 'https://chatscripter.vercel.app/'
   ),
   alternates: {
     canonical: '/',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'zh_TW',
-    url: `${process.env.NEXT_PUBLIC_VERCEL_URL || 'https://chatscripter.vercel.app/'}`,
+    url: `${process.env.NEXT_PUBLIC_URL || 'https://chatscripter.vercel.app/'}`,
     siteName: 'ChatScripter',
     images: [
       {
