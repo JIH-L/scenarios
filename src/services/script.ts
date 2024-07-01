@@ -1,5 +1,5 @@
 import type { ScriptData, ScriptList } from '@/types/common';
-const API_URL = process.env.NEXT_PUBLIC_URL;
+import { API_URL } from '@/lib/constants';
 
 async function fetchJsonWithCheck<T>(url: string): Promise<T> {
   const res = await fetch(url);
