@@ -1,28 +1,46 @@
-'use client';
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import SkeletonPage from '@/components/Skeleton/SkeletonPage';
 import type { ScriptData } from '@/types/common';
 import { splitDate } from '@/lib/utils';
 import { getScriptById } from '@/services/script';
-export default function ContentPage({
+import type { Metadata, ResolvingMetadata } from 'next';
+
+type Props = {
+  params: { slug: string; id: number };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.id;
+  const type = params.slug;
+
+  // fetch data
+  const data = await getScriptById(type, id);
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: data?.title,
+    description: data?.description.slice(0, 160) || '',
+    openGraph: {
+      type: 'website',
+      title: data?.title,
+      description: data?.description.slice(0, 160),
+      url: `${process.env.NEXT_PUBLIC_URL}/anime/${id}`,
+      images: [data?.imageUrl || '/images/error.webp', ...previousImages],
+    },
+  };
+}
+export default async function ContentPage({
   params,
 }: {
   params: { slug: string; id: number };
 }) {
-  const [data, setData] = useState<ScriptData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getScriptById(params.slug, params.id).then((res) => {
-      setData(res);
-      setLoading(false);
-    });
-  }, [params]);
-
-  if (loading) {
-    return <SkeletonPage />;
-  }
+  const data = (await getScriptById(params.slug, params.id)) as ScriptData;
 
   return (
     <>
@@ -42,10 +60,7 @@ export default function ContentPage({
         width={672}
         height={672}
         priority={true}
-        className="mt-10 rounded opacity-0 transition-opacity duration-500"
-        onLoad={(e) => {
-          e.currentTarget.classList.add('opacity-100');
-        }}
+        className="mt-10 rounded"
       />
       <p className="my-10 italic">{data?.description}</p>
       <hr />
