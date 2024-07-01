@@ -1,19 +1,22 @@
 import type { ScriptData, ScriptList } from '@/types/common';
 import { API_URL } from '@/lib/constants';
 
-async function fetchJsonWithCheck<T>(url: string): Promise<T> {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Network response was not ok for URL: ${url}`);
-  }
-  return res.json();
-}
-
 async function fetchData<T>(url: string): Promise<T | null> {
+  const fullUrl = `${API_URL}${url}`;
   try {
-    return await fetchJsonWithCheck<T>(`${API_URL}${url}`);
+    const res = await fetch(fullUrl);
+    if (!res.ok) {
+      throw new Error(
+        `Network response was not ok for URL: ${fullUrl}, status: ${res.status}, statusText: ${res.statusText}`
+      );
+    }
+    return res.json();
   } catch (error) {
-    console.error(`Fetch error for URL ${url}:`, error);
+    if (error instanceof Error) {
+      console.error(`Fetch error for URL ${fullUrl}:`, error.message);
+    } else {
+      console.error(`Fetch error for URL ${fullUrl}:`, error);
+    }
     return null;
   }
 }
