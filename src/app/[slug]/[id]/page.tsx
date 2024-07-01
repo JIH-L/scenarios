@@ -30,7 +30,7 @@ export async function generateMetadata(
       type: 'website',
       title: data?.title,
       description: data?.description.slice(0, 160),
-      url: `${process.env.NEXT_PUBLIC_URL}/anime/${id}`,
+      url: `${process.env.NEXT_PUBLIC_URL}/${type}/${id}`,
       images: [data?.imageUrl || '/images/error.webp', ...previousImages],
     },
   };
