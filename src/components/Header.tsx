@@ -4,8 +4,6 @@ import { auth } from '@/auth';
 import logo from '@/../public/images/logo.svg';
 import { Button } from '@/components/ui/button';
 import { SignIn } from '@/components/SignIn';
-// import { SignOut } from '@/components/SignOut';
-// import { UserAvatar } from '@/components/UserAvatar';
 import { AccountDropdown } from '@/components/AccountDropdown';
 
 export async function Header() {
