@@ -5,7 +5,7 @@ export default function SkeletonHomeList() {
     <section className="pb-10">
       <Skeleton className="my-4 h-7 w-40 rounded-xl md:h-[44px] md:w-60" />
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4 xl:gap-8">
-        {Array(4)
+        {Array(8)
           .fill(null)
           .map((_, index) => (
             <SkeletonCard key={index} />

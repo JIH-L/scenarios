@@ -1,26 +1,28 @@
 import ArticleCard from '@/components/ArticleCard';
 import Link from 'next/link';
-import type { ScriptList } from '@/types/common';
+import type { ScriptData } from '@/types/common';
+import { getScriptList } from '@/app/lib/data';
 
-export default function HomeList({
-  scriptList,
+export default async function HomeList({
   type,
   priority,
 }: {
-  scriptList: ScriptList;
   type: string;
   priority?: boolean;
 }) {
   const scriptType: { [key: string]: string } = {
-    game: '遊戲劇本',
+    games: '遊戲劇本',
     movies: 'Movies',
-    novel: '小說劇本',
+    novels: '小說劇本',
   };
+
+  const scriptList = await getScriptList(type);
+
   return (
     <section className="pb-10">
       <h2 className="text-xl md:text-3xl">最新{scriptType[type]}</h2>
       <div className="mt-4 grid grid-cols-2 gap-4 transition-opacity duration-500 md:grid-cols-3 xl:grid-cols-4 xl:gap-8">
-        {scriptList?.data?.slice(0, 8).map((data, index) => (
+        {scriptList?.slice(0, 8).map((data: ScriptData, index: number) => (
           <Link
             href={`/${type}/${data._id}`}
             key={data._id}

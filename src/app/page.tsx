@@ -1,11 +1,8 @@
-import type { ScriptList } from '@/types/common';
-import { getScriptList } from '@/services/script';
 import HomeList from '@/components/HomeList';
+import { Suspense } from 'react';
+import SkeletonHomeList from '@/components/Skeleton/SkeletonHomeList';
 
 export default async function Home() {
-  const gamesList = (await getScriptList('games')) as ScriptList;
-  const novelsList = (await getScriptList('novels')) as ScriptList;
-
   return (
     <>
       <section className="flex flex-col items-center gap-2 space-x-2 py-20">
@@ -18,8 +15,12 @@ export default async function Home() {
           透過劇本創作，讓你的想法實現。
         </span>
       </section>
-      <HomeList scriptList={gamesList} type={'game'} priority={true} />
-      <HomeList scriptList={novelsList} type={'novel'} />
+      <Suspense fallback={<SkeletonHomeList />}>
+        <HomeList type={'games'} priority={true} />
+      </Suspense>
+      <Suspense fallback={<SkeletonHomeList />}>
+        <HomeList type={'novels'} />
+      </Suspense>
     </>
   );
 }
