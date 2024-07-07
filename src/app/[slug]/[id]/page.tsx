@@ -1,11 +1,13 @@
 import Image from 'next/image';
 import type { ScriptData } from '@/types/common';
 import { splitDate } from '@/lib/utils';
-import { getScriptById } from '@/services/script';
 import type { Metadata, ResolvingMetadata } from 'next';
+import { getScriptById } from '@/app/lib/data';
+import { Suspense } from 'react';
+import SkeletonPage from '@/components/Skeleton/SkeletonPage';
 
 type Props = {
-  params: { slug: string; id: number };
+  params: { slug: string; id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -18,7 +20,7 @@ export async function generateMetadata(
   const type = params.slug;
 
   // fetch data
-  const data = await getScriptById(type, id);
+  const data = (await getScriptById(`${type}s`, id)) as ScriptData;
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -38,12 +40,12 @@ export async function generateMetadata(
 export default async function ContentPage({
   params,
 }: {
-  params: { slug: string; id: number };
+  params: { slug: string; id: string };
 }) {
-  const data = (await getScriptById(params.slug, params.id)) as ScriptData;
+  const data = await getScriptById(`${params.slug}s`, params.id);
 
   return (
-    <>
+    <Suspense fallback={<SkeletonPage />}>
       <h1>{data?.title}</h1>
       <div className="my-4 flex justify-between">
         <span className="text-sm text-gray-500">
@@ -68,6 +70,6 @@ export default async function ContentPage({
         className="mt-10"
         dangerouslySetInnerHTML={{ __html: data?.content || '' }}
       />
-    </>
+    </Suspense>
   );
 }

@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 let cachedDb: any = null;
 
@@ -34,5 +34,24 @@ export async function getScriptList(type: string) {
   } catch (error) {
     console.error(error);
     throw new Error('Failed to get script list');
+  }
+}
+
+export async function getScriptById(type: string, id: string) {
+  try {
+    const db = await connectToDatabase(process.env.MONGODB_URI as string);
+    const collection = db.collection(type);
+
+    const data = await collection.findOne({ _id: new ObjectId(id) });
+
+    const formattedData = {
+      ...data,
+      createdAt: data.createdAt.toISOString(), // 假設 createdAt 是日期字段
+    };
+
+    return formattedData;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to get script by id');
   }
 }
