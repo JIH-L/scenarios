@@ -24,6 +24,9 @@ export async function getScriptById(
   return fetchData(`/api/${slug}?id=${id}`);
 }
 
-export async function getScriptList(type: string): Promise<ScriptList | null> {
-  return fetchData(`/api/${type}`);
+export async function getScriptList(
+  type: string,
+  page: number
+): Promise<ScriptList | null> {
+  return fetchData(`/api/${type}?page=${page}`);
 }

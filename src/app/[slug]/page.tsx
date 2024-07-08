@@ -10,11 +10,20 @@ import SkeletonList from '@/components/Skeleton/SkeletonList';
 export default function ListPage({ params }: { params: { slug: string } }) {
   const [list, setList] = useState<ScriptData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
-  async function fetchList(type: string) {
-    const res = await getScriptList(type);
+  async function fetchList(type: string, page: number) {
+    const res = await getScriptList(type, page);
     if (!res) return;
-    setList(res.data);
+    setList((prevList) => {
+      const newList = res.data.filter(
+        (item: ScriptData) =>
+          !prevList.some((prevItem) => prevItem._id === item._id)
+      );
+      return [...prevList, ...newList];
+    });
+    setTotalPages(res.totalPages); // 假設 API 返回 totalPages
     setLoading(false);
   }
 
@@ -30,8 +39,26 @@ export default function ListPage({ params }: { params: { slug: string } }) {
   };
 
   useEffect(() => {
-    fetchList(params.slug);
-  }, [params.slug]);
+    fetchList(params.slug, page);
+  }, [params.slug, page]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+          document.documentElement.offsetHeight ||
+        loading ||
+        page >= totalPages // 檢查是否已達到 totalPages
+      ) {
+        return;
+      }
+      setPage((prevPage) => prevPage + 1);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, page, totalPages]);
+
   return (
     <>
       <h1 className="mb-4 text-2xl md:pt-10 md:text-3xl">
