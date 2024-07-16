@@ -42,6 +42,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7819194777376926"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body className={inter.className}>
         <Header />
         <div className="mx-auto max-w-sm px-4 sm:max-w-lg md:max-w-2xl md:px-0 xl:max-w-5xl">
